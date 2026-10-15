@@ -24,7 +24,7 @@ Route::get('/', function () {
 });
 
 Route::get('/login', [AuthController::class, 'show'])->name('login')->middleware('guest');
-Route::post('/login', [AuthController::class, 'login'])->middleware('guest')->name('login.store');
+Route::post('/login', [AuthController::class, 'login'])->middleware(['guest', 'throttle:5,1'])->name('login.store');
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
 Route::middleware(['auth', 'employee.ip'])->group(function () {
